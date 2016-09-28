@@ -28,11 +28,17 @@ blobListen('#document').ready(function(){
   }
 
   function addLi() {
+    // creates <li></li>
     var item = document.createElement('li');
+    // headline gets last notes abbr headline
     var headline = app.mapNotes().slice(-1)[0];
+    // index is the position of that headline ^
     var index = app.mapNotes().lastIndexOf(headline);
+    // creates <li id="headline-0"></li>
     item.setAttribute("id", "headline-" + index);
+    // append the actual string to the item
     item.appendChild(document.createTextNode(headline));
+    console.log(item);
     document.getElementById('full-view').appendChild(addArticle(index));
     addLiListener(item, index);
     return item;
