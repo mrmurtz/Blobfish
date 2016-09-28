@@ -30,24 +30,27 @@ blobListen('#document').ready(function(){
   function addLi() {
     // creates <li></li>
     var item = document.createElement('li');
-    // headline gets last notes abbr headline
+    // headline gets last notes abbr headline as a string
     var headline = app.mapNotes().slice(-1)[0];
-    // index is the position of that headline ^
+    // index is the position of that headline in the arrb_notes array^
     var index = app.mapNotes().lastIndexOf(headline);
     // creates <li id="headline-0"></li>
     item.setAttribute("id", "headline-" + index);
-    // append the actual string to the item
+    // append the actual string to the item (which is the li)
     item.appendChild(document.createTextNode(headline));
-    console.log(item);
     document.getElementById('full-view').appendChild(addArticle(index));
     addLiListener(item, index);
     return item;
   }
 
   function addArticle(index) {
+    // article is <p></p>
     var article = document.createElement('p');
+    // set style="display:none" in the <p>p</p>
     article.setAttribute("style", "display:none");
+    // adds the id="article and the index number to the p"
     article.setAttribute("id", "article-" + index);
+    // saving the full article we want in fullNote var
     var fullNote = app.notes[index];
     article.appendChild(document.createTextNode(fullNote));
     var button = createCloseBtn();
@@ -77,6 +80,5 @@ blobListen('#document').ready(function(){
       blobListen('article-'+index).hide();
     }, false);
   }
-
 
 });
