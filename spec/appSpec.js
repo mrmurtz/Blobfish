@@ -22,11 +22,11 @@ describe("App", function() {
     });
   });
 
-  describe("listNotes", function() {
+  describe("mapNotes", function() {
     it("show the abreviated notes", function() {
       app = new App();
       app.createNote("Remember to code every day");
-      expect(app.listNotes()).toContain("Remember to code eve");
+      expect(app.mapNotes()).toContain("Remember to code eve");
     });
   });
 
