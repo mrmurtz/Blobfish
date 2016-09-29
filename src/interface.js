@@ -3,6 +3,37 @@ blobListen('#document').ready(function(){
   var app = new App();
   makeOL();
 
+
+  var request = new XMLHttpRequest();
+  request.open('GET', 'https://content.guardianapis.com/search?api-key=59001b87-63d3-4d83-aa21-ed20cfdbd037', true);
+
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400) {
+      // Success!
+      var data = JSON.parse(request.responseText);
+      var newsTitle = data.response.results[2].webTitle;
+      console.log(data);
+
+      var div = document.getElementById('news-title');
+      div.appendChild(document.createTextNode(newsTitle));
+
+
+    } else {
+      // We reached our target server, but it returned an error
+
+    }
+  };
+
+  request.onerror = function() {
+    // There was a connection error of some sort
+  };
+
+  request.send();
+
+
+
+
+
   blobListen('create').click(function(){
     var note = document.getElementById("new-note").value;
     app.createNote(note);
@@ -10,7 +41,13 @@ blobListen('#document').ready(function(){
     updateHomeDisplay();
   });
 
+
+
+
 //  Helper functions follow
+
+
+
 
   function updateHomeDisplay() {
     uiHome();
