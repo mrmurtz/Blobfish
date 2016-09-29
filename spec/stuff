@@ -1,0 +1,5 @@
+// testWindow.document.getElementById('new-note').value = longString;
+};
+// testWindow.getElementById('create').click();
+// expect(testWindow.getElementById('article-0').style.display).toEqual('none');
+// testWindow.close();
