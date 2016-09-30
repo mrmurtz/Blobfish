@@ -3,36 +3,35 @@ blobListen('#document').ready(function(){
   var app = new App();
   makeOL();
 
-
   var request = new XMLHttpRequest();
-  request.open('GET', 'https://content.guardianapis.com/search?api-key=59001b87-63d3-4d83-aa21-ed20cfdbd037', true);
+  var apiKey = "api-key=59001b87-63d3-4d83-aa21-ed20cfdbd037";
+
+  request.open('GET', 'http://content.guardianapis.com/search?from-date=2016-03-04&to-date=2016-03-04&order-by=newest&show-fields=all&page-size=1&' + apiKey , true);
 
   request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
       // Success!
       var data = JSON.parse(request.responseText);
-      var newsTitle = data.response.results[2].webTitle;
-      console.log(data);
+      headline = data.response.results[0].fields.headline;
+      body = data.response.results[0].fields.body;
+      img = data.response.results[0].fields.thumbnail;
 
-      var div = document.getElementById('news-title');
-      div.appendChild(document.createTextNode(newsTitle));
+      document.getElementById('news-title').appendChild(document.createTextNode(headline));
+      document.getElementById('news-body').appendChild(document.createTextNode(body));
+      document.getElementById('news-image').setAttribute("src", img);
+
 
 
     } else {
       // We reached our target server, but it returned an error
-
     }
   };
-
   request.onerror = function() {
     // There was a connection error of some sort
   };
-
+  function beforeSend(xhr) {
+  request.setRequestHeader("X-Mashape-Key", "cU9KfUnjqPmshVxjcnAufRZPM7Rlp1ppzM4jsn1PSXdJbrOlOn");} // Enter here your Mashape key
   request.send();
-
-
-
-
 
   blobListen('create').click(function(){
     var note = document.getElementById("new-note").value;
@@ -41,13 +40,7 @@ blobListen('#document').ready(function(){
     updateHomeDisplay();
   });
 
-
-
-
 //  Helper functions follow
-
-
-
 
   function updateHomeDisplay() {
     uiHome();
